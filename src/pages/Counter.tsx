@@ -18,11 +18,11 @@ const Counter: React.FC = () => {
       setIsPaused(false);
     }
 
-    setCount(prev => prev + 1);
+    setCount((prev) => prev + 1);
   };
 
   const toggleSecondCounter = () => {
-    setIsSecondCounterActive(prev => !prev);
+    setIsSecondCounterActive((prev) => !prev);
   };
 
   const handlePause = () => {
@@ -34,7 +34,7 @@ const Counter: React.FC = () => {
 
     if (isSecondCounterActive && startCounting && !isPaused) {
       interval = setInterval(() => {
-        setSeconds(prev => prev + 1);
+        setSeconds((prev) => prev + 1);
       }, 1000);
     }
 
@@ -55,13 +55,20 @@ const Counter: React.FC = () => {
           Contar
         </button>
         <button onClick={toggleSecondCounter} style={styles.fancyButton}>
-          {isSecondCounterActive ? "Desativar contador de segundos" : "Ativar contador de segundos"}
+          {isSecondCounterActive
+            ? "Desativar contador de segundos"
+            : "Ativar contador de segundos"}
         </button>
 
-        {startCounting && !isPaused && (
-          <button onClick={handlePause} style={styles.redButton}>Parar contador</button>
-        )}
+ 
       </div>
+      {startCounting && !isPaused && (
+          <div style={styles.pauseContainer}>
+            <button onClick={handlePause} style={styles.redButton}>
+              Parar contador
+            </button>
+          </div>
+        )}
     </div>
   );
 };
@@ -102,6 +109,11 @@ const styles = {
     boxShadow: "0 4px 8px rgba(255, 0, 0, 0.3)",
     transition: "background-color 0.3s ease",
   } as React.CSSProperties,
+  pauseContainer: {
+    display: "flex",
+    justifyContent: "center",
+    marginTop: "15px",
+  },
 };
 
 export default Counter;
